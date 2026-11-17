@@ -5,6 +5,7 @@ class Product {
   final String category;
   final String image;
   final num price;
+  final double rating;
 
   //Constructeur avec les paramètres nommés "required"
   Product({
@@ -14,6 +15,7 @@ class Product {
     required this.price,
     required this.category,
     required this.description,
+    required this.rating,
   });
 
   @override
@@ -33,10 +35,13 @@ class Product {
       'category': this.category,
       'image': this.image,
       'price': this.price,
+      'rating': {'rate': this.rating},
     };
   }
 
   factory Product.fromMap(Map<String, dynamic> map) {
+    final ratingMap = map['rating'] as Map<String, dynamic>?;
+    final rate = (ratingMap?['rate'] as num?)?.toDouble() ?? 0.0;
     return Product(
       id: map['id'] as int,
       title: map['title'] as String,
@@ -44,6 +49,7 @@ class Product {
       category: map['category'] as String,
       image: map['image'] as String,
       price: map['price'] as num,
+      rating: rate,
     );
   }
 }

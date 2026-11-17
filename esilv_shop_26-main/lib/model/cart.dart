@@ -12,7 +12,9 @@ class Cart extends _$Cart {
   void addProduct(Product product) {
     state = [...state, product];
   }
-  void removeProduct(Product product) {
-    state = state.where((element) => element.id != product.id).toList();
+  void removeProduct(int index) {
+    state = List<Product>.from(state)..removeAt(index);
   }
+  String get priceInEuros =>
+      "${(state.fold<num>(0, (prv, actual) => prv + actual.price)).toStringAsFixed(2)}€";
 }

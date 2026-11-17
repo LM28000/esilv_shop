@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart';
 
 import '../model/cart.dart';
 import '../model/product.dart';
@@ -42,6 +41,19 @@ class DetailProductPage extends ConsumerWidget {
                   ),
                 ),
                 Text(product.getPrice()),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              children: [
+                Icon(Icons.star, color: Colors.amber, size: 20),
+                const SizedBox(width: 4),
+                Text(
+                  "${product.rating}",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ],
             ),
           ),

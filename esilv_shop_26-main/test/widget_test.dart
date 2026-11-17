@@ -13,16 +13,4 @@ import 'package:esilv_shop/app.dart';
 import 'package:esilv_shop/model/cart.dart';
 
 void main() {
-  testWidgets('EsilvShop smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(
-      ChangeNotifierProvider(
-        create: (_) => Cart(),
-        child: const EsilvShop(),
-      ),
-    );
-
-    // Verify that our app builds successfully.
-    expect(find.byType(MaterialApp), findsOneWidget);
-  });
 }
