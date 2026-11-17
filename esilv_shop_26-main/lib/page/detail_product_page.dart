@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart';
 
 import '../model/cart.dart';
 import '../model/product.dart';
 
-class DetailProductPage extends StatelessWidget {
+class DetailProductPage extends ConsumerWidget {
   final Product product;
 
   const DetailProductPage({required this.product, super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -53,7 +54,7 @@ class DetailProductPage extends StatelessWidget {
             child: Text(product.category),
           ),
           //chip si le produit est dans le panier
-          if (context.watch<Cart>().products.contains(product))
+          if (ref.watch(cartProvider).contains(product))
             Chip(
               label: Text("Dans le panier"),
               backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -65,7 +66,7 @@ class DetailProductPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               child: FilledButton(
                 onPressed: () {
-                  context.read<Cart>().addProduct(product);
+                  ref.read(cartProvider.notifier).addProduct(product);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text("Produit ajouté au panier"),

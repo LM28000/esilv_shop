@@ -2,16 +2,17 @@ import 'dart:convert';
 
 import 'package:esilv_shop/model/product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 import '../model/cart.dart';
 
-class ListProductPage extends StatelessWidget {
+class ListProductPage extends ConsumerWidget {
   const ListProductPage({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -19,7 +20,7 @@ class ListProductPage extends StatelessWidget {
         actions: [
           IconButton(onPressed: () {}, icon: Badge.count(
               child: Icon(Icons.shopping_cart_outlined),
-              count: context.watch<Cart>().products.length
+              count: ref.watch(cartProvider).length
           ))
         ],
       ),
@@ -40,7 +41,7 @@ class ListProductPage extends StatelessWidget {
                 leading: Image.network(products[index].image, width: 80),
                 trailing: TextButton(
                   onPressed: () {
-                    context.read<Cart>().addProduct(products[index]);
+                    ref.read(cartProvider.notifier).addProduct(products[index]);
                   },
                   child: Text("Ajouter".toUpperCase()),
                 ),
